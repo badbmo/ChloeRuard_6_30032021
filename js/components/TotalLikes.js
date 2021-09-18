@@ -5,9 +5,7 @@ export default class TotalLikes {
 	}
 
 	incrementTotalLikes(){
-		//this.likes += 1;
 		const photographerTotalLikes = document.querySelector(".photographer__totalLikes");
-		//photographerTotalLikes.textContent = this.likes ++;
 		const likesNumber = document.querySelectorAll(".likes__number");
 		const likesArray = Array.from(likesNumber).map((acc) => parseInt(acc.textContent));
 		const likesSum = likesArray.reduce((total, likes) => total + likes, 0);

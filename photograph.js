@@ -25,12 +25,8 @@ class Photograph {
 				this.displayHeader();
 				this.displayPhotographer();
 				this.displayForm();
-
-				this.mediums = data.media.filter((mediums) => {
-					return mediums.photographerId === parseInt(id);
-				});
-				console.log(this.mediums);
-				this.displayMedia(this.mediums);
+				this.createPhotographerMedia(data.media, id);
+				this.displayMedia(this.sortByPopularity);
 				this.displaySort();
 				this.sortMedia();
 				this.displayTotalLikes();
@@ -62,13 +58,16 @@ class Photograph {
 		modalForm.workingForm();
 	}
 
-	displayMedia(mediums) {
+	createPhotographerMedia(media, id) {
+		this.photographerMediaArray = media
+			.filter((mediums) => mediums.photographerId === parseInt(id))
+			.map((medium) => new PhotographerMedia(medium));
+	}
+
+	displayMedia() {
 		const mediumsListContainer = document.querySelector(".mediums__list");
-		this.photographerMediaArray = [];
-		const picture = mediums.map((medium) => {
-			const photographerMedia = new PhotographerMedia(medium);
-			this.photographerMediaArray.push(photographerMedia);
-			return photographerMedia.render();
+		const picture = this.photographerMediaArray.map((medium) => {
+			return medium.render();
 		});
 		mediumsListContainer.innerHTML = picture.join("");
 	}
@@ -79,30 +78,39 @@ class Photograph {
 		mediumsSortContainer.innerHTML += sortButton.render();
 	}
 
+	sortByTitle() {
+		return this.photographerMediaArray.sort((a, b) => {
+			return a.title.localeCompare(b.title);
+		});
+	}
+
+	sortByDate() {
+		return this.photographerMediaArray.sort((a, b) => {
+			const dateA = new Date(a.date);
+			const dateB = new Date(b.date);
+			return dateB - dateA;
+		});
+	}
+
+	sortByPopularity() {
+		return this.photographerMediaArray.sort((a, b) => {
+			return b.likes - a.likes;
+		});
+	}
+
 	sortMedia() {
 		document.addEventListener("change", (e) => {
 			if (e.target.dataset.trigger === "select") {
-				console.log(e.target.value);
 				if (e.target.value == "titre") {
-					let sortedMediums = this.mediums.sort((a, b) => {
-						return a.title.localeCompare(b.title);
-					});
-					this.displayMedia(sortedMediums);
+					this.photographerMediaArray = this.sortByTitle();
 				}
 				if (e.target.value == "date") {
-					let sortedMediums = this.mediums.sort((a, b) => {
-						const dateA = new Date(a.date);
-						const dateB = new Date(b.date);
-						return dateB - dateA;
-					});
-					this.displayMedia(sortedMediums);
+					this.photographerMediaArray = this.sortByDate();
 				}
 				if (e.target.value == "popularité") {
-					let sortedMediums = this.mediums.sort((a, b) => {
-						return b.likes - a.likes;
-					});
-					this.displayMedia(sortedMediums);
+					this.photographerMediaArray = this.sortByPopularity();
 				}
+				return this.displayMedia(this.photographerMediaArray);
 			}
 		});
 	}
@@ -133,7 +141,7 @@ class Photograph {
 
 	displayLightBox() {
 		const mainContainer = document.querySelector(".mainContainer");
-		const lightbox = new LightBox(this.mediums);
+		const lightbox = new LightBox(this.photographerMediaArray);
 		mainContainer.innerHTML += lightbox.render();
 		lightbox.workingLightbox();
 	}

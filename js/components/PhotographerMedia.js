@@ -18,6 +18,7 @@ export default class PhotographerMedia {
 	}
 
 	incrementLikes() {
+		this.likes += 1;
 		this.heartComponent.incrementLikes();
 	}
 

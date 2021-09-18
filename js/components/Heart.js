@@ -6,9 +6,9 @@ export default class Heart {
 	}
 
 	incrementLikes() {
-		//this.likes += 1;
+		this.likes += 1;
 		const numberLikes = document.querySelector(`[data-likes='${this.id}']`);
-		numberLikes.textContent = this.likes +1;
+		numberLikes.textContent = this.likes ;
 	}
 
 	render() {
