@@ -56,15 +56,21 @@ class Index {
 	}
 
 	sortPhotographers() {
-		document.addEventListener("click", (e) => {
-			if (e.target.dataset.trigger === "tag") {
-				console.log(e.target.dataset.id);
-				let filteredPhotographs = this.photographers.filter((photographer) =>
-					photographer.tags.includes(e.target.dataset.id)
-				);
-				this.displayPhotographCards(filteredPhotographs);
-			}
-		});
+		// document.addEventListener("click", (e) => {
+		// 	if (e.target.dataset.trigger === "tag") {
+		// 		console.log(e.target.dataset.id);
+		// 		let filteredPhotographs = this.photographers.filter((photographer) =>
+		// 			photographer.tags.includes(e.target.dataset.id)
+		// 		);
+		// 		this.displayPhotographCards(filteredPhotographs);
+		// 	}
+		// });
+		const urlSearchParams = new URL(document.location).searchParams;
+		const tag = urlSearchParams.get("tag");
+		if (tag != null) {
+			let filteredPhotographs = this.photographers.filter((photographer) => photographer.tags.includes(tag));
+			this.displayPhotographCards(filteredPhotographs);
+		}
 	}
 
 	displayContentButton() {
