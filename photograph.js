@@ -4,7 +4,7 @@ import PhotographerMedia from "./js/components/PhotographerMedia.js";
 import Header from "./js/components/Header.js";
 import TotalLikes from "./js/components/TotalLikes.js";
 import ModalForm from "./js/components/ModalForm.js";
-import LightBox from "./js/LightBox.js";
+import LightBox from "./js/components/LightBox.js";
 
 class Photograph {
 	constructor() {
@@ -141,6 +141,7 @@ class Photograph {
 
 	displayLightBox() {
 		const mainContainer = document.querySelector(".mainContainer");
+		console.log(this.photographerMediaArray);
 		const lightbox = new LightBox(this.photographerMediaArray);
 		mainContainer.innerHTML += lightbox.render();
 		lightbox.workingLightbox();

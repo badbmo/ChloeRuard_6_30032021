@@ -421,6 +421,14 @@
 		position: relative;
 		box-shadow: -5px 10px 30px 0px rgba(0, 0, 0, 0.4);
 	}
+	// &__mediumsList{
+	// 	display: flex;
+	// }
+	&__media {
+		width: 400px;
+		height: 400px;
+		overflow: hidden;
+	}
 	&__video {
 		display: block;
 		@include img-max;
@@ -428,15 +436,16 @@
 	&__img {
 		@include img-max;
 	}
-	&__media {
-		width: 400px;
-		height: 400px;
-		overflow: hidden;
-	}
 	&__closeX {
 		cursor: pointer;
 	}
 	&__arrow {
 		cursor: pointer;
+	}
+	&__mediaContainer{
+		display: none;
+		&.active{
+			display: block;
+		}
 	}
 }
