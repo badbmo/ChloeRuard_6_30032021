@@ -18,12 +18,12 @@ export default class LightBox {
 		return `
 		<div class="lightbox__background">
 			<div class="lightbox__modal" aria-label="image closeup view">
-				<img src="img/closeX.svg" class="lightbox__closeX" data-trigger="lightbox__closeX" alt="close dialog"/>
 				<img src="img/leftArrow.svg" class="lightbox__arrow" data-trigger="left" alt="previous image"/>
-				<img src="img/rightArrow.svg" class="lightbox__arrow" data-trigger="right" alt="next image" />
 				<article class="lightbox__mediumsList">
 				${this.renderMediaFactory()}
 				</article>
+				<img src="img/rightArrow.svg" class="lightbox__arrow" data-trigger="right" alt="next image" />
+				<img src="img/closeX.svg" class="lightbox__closeX" data-trigger="lightbox__closeX" alt="close dialog"/>
 			</div>
 		</div>`;
 	}
@@ -58,7 +58,7 @@ export default class LightBox {
 
 		const launchLightbox = () => {
 			const lightboxBg = document.querySelector(".lightbox__background");
-			lightboxBg.style.display = "block";
+			lightboxBg.style.display = "flex";
 		};
 
 		document.addEventListener("click", (e) => {
