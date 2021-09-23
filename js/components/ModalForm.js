@@ -4,6 +4,170 @@ export default class ModalForm {
 		this.name = data.name;
 	}
 
+	workingForm() {
+		this.firstNameValidated = false;
+		this.lastNameValidated = false;
+		this.emailValidated = false;
+		this.messageValidated = false;
+
+		this.errorMessages = {
+			firstName: "Veuillez entrer 2 caractères ou plus.",
+			lastName: "Veuillez entrer 2 caractères ou plus.",
+			email: "Veuillez entrer une adresse email valide.",
+			message: "Veuillez entrer 5 caractères ou plus.",
+		};
+
+		// Délégation d'évènements
+		document.addEventListener("click", (e) => {
+			if (e.target.dataset.trigger === "contact") {
+				this.launchModal();
+			}
+		});
+
+		document.addEventListener("click", (e) => {
+			if (e.target.dataset.trigger === "closeX") {
+				this.closeModal();
+			}
+		});
+
+		document.addEventListener("submit", (e) => {
+			if (e.target.dataset.trigger === "form") {
+				e.preventDefault();
+				this.validate();
+				this.showResultConsole();
+			}
+		});
+	}
+
+	showResultConsole() {
+		const inputs = [...document.querySelectorAll(".text-control")];
+		let values = inputs.map((input) => input.value);
+		let keys = inputs.map((input) => input.name);
+		let result = {};
+		for (let i = 0; i < keys.length; i++) {
+			result[keys[i]] = values[i];
+		}
+		console.log(result);
+	}
+
+	launchModal() {
+		const modalBg = document.querySelector(".form__background");
+		modalBg.style.display = "block";
+	}
+
+	closeModal() {
+		const modalBg = document.querySelector(".form__background");
+		modalBg.style.display = "none";
+	}
+
+	validate() {
+		this.firstNameValidate();
+		this.lastNameValidate();
+		this.emailValidate();
+		this.messageValidate();
+		//execute each methods to validate or not each input
+		if (
+			this.firstNameValidated == true &&
+			this.lastNameValidated == true &&
+			this.emailValidated == true &&
+			this.messageValidated == true
+		) {
+			this.showSuccessMessage();
+			this.hideFormData();
+			this.modifySubmitButton();
+			//if all inputs correct, execute the methods that show the success message
+		} else {
+			console.log("formulaire incorrect");
+		}
+	}
+
+	// -- Inputs validation --
+
+	firstNameValidate() {
+		const firstNameForm = document.querySelector("#first");
+		// eslint-disable-next-line no-useless-escape
+		if (firstNameForm.value.length < 2 || firstNameForm.value == null || !/^[A-Za-z\-\']+$/.test(firstNameForm.value)) {
+			//Regex: accept letters from A to Z upper or lowercase, accept - and '
+			this.showError(firstNameForm, this.errorMessages.firstName);
+			return (this.firstNameValidated = false);
+		} else {
+			this.hideError(firstNameForm);
+			return (this.firstNameValidated = true);
+		}
+	}
+
+	lastNameValidate() {
+		const lastNameForm = document.querySelector("#last");
+		// eslint-disable-next-line no-useless-escape
+		if (lastNameForm.value.length < 2 || lastNameForm.value == null || !/^[A-Za-z\-\']+$/.test(lastNameForm.value)) {
+			//Regex: accept letters from A to Z upper or lowercase, accept - and '
+			this.showError(lastNameForm, this.errorMessages.firstName);
+			return (this.lastNameValidated = false);
+		} else {
+			this.hideError(lastNameForm);
+			return (this.lastNameValidated = true);
+		}
+	}
+
+	emailValidate() {
+		const emailForm = document.querySelector("#email");
+		// eslint-disable-next-line no-useless-escape
+		if (emailForm.value == null || !/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(emailForm.value)) {
+			//Regex: (one or more (+)(letters and digits 0 to 9 and _ - .)) @ (one or more (+)(letters and digits 0 to 9 and _ - .)) . (2 to 5 letters)
+			this.showError(emailForm, this.errorMessages.email);
+			return (this.emailValidated = false);
+		} else {
+			this.hideError(emailForm);
+			return (this.emailValidated = true);
+		}
+	}
+
+	messageValidate() {
+		const messageForm = document.querySelector("#message");
+		if (messageForm.value.length < 5 || messageForm.value == null) {
+			this.showError(messageForm, this.errorMessages.message);
+			return (this.messageValidated = false);
+		} else {
+			this.hideError(messageForm);
+			return (this.messageValidated = true);
+		}
+	}
+
+	// -- Errors Management --
+
+	showError(selectedInput, errorMessage) {
+		selectedInput.parentElement.setAttribute("data-error-visible", "true");
+		selectedInput.parentElement.setAttribute("data-error", errorMessage);
+	}
+
+	hideError(selectedInput) {
+		selectedInput.parentElement.removeAttribute("data-error-visible");
+		selectedInput.parentElement.removeAttribute("data-error");
+	}
+
+	// -- Success Message --
+
+	showSuccessMessage() {
+		const formBody = document.querySelector(".form__body");
+		const successMessage = document.createElement("span");
+		successMessage.classList.add("success");
+		successMessage.textContent = `Merci ! Votre message a bien été envoyé à ${this.name}`;
+		formBody.appendChild(successMessage);
+	}
+
+	hideFormData() {
+		const formData = document.querySelectorAll(".form__data");
+		formData.forEach((data) => (data.style.visibility = "hidden"));
+	}
+
+	modifySubmitButton() {
+		const submitBtn = document.querySelectorAll(".button--submit");
+		submitBtn.forEach((btn) => btn.setAttribute("value", "Fermer"));
+		submitBtn.forEach((btn) => btn.addEventListener("click", this.closeModal));
+	}
+
+	// -- Render methods --
+
 	renderForm() {
 		return `
 		<div class="form__background">
@@ -36,163 +200,11 @@ export default class ModalForm {
 					</div>`;
 	}
 
-	// bouton launch modal HTML creation
 	renderbutton() {
 		return `
 		<button class="button button--contact" alt="contact me" data-trigger="contact">
 			Contactez-moi
 		</button>`;
 	}
-
-	workingForm() {
-		// Délégation d'évènements
-		document.addEventListener("click", (e) => {
-			if (e.target.dataset.trigger === "contact") {
-				console.log("ok");
-				launchModal();
-			}
-		});
-
-		document.addEventListener("click", (e) => {
-			if (e.target.dataset.trigger === "closeX") {
-				console.log("ok");
-				closeModal();
-			}
-		});
-
-		document.addEventListener("submit", (e) => {
-			if (e.target.dataset.trigger === "form") {
-				e.preventDefault();
-				validate();
-				const inputs = document.querySelectorAll(".text-control");
-				inputs.forEach((input) =>console.log(input.value));
-			}
-		});
-
-		// launch modal form
-		const launchModal = () => {
-			const modalBg = document.querySelector(".form__background");
-			modalBg.style.display = "block";
-		};
-
-		// close modal form
-		const closeModal = () => {
-			const modalBg = document.querySelector(".form__background");
-			modalBg.style.display = "none";
-		};
-
-		// submit modal form
-
-		let firstNameValidated = false;
-		let lastNameValidated = false;
-		let emailValidated = false;
-		let messageValidated = false;
-
-		const firstNameValidate = () => {
-			const firstNameForm = document.querySelector("#first");
-			// eslint-disable-next-line no-useless-escape
-			if (firstNameForm.value.length < 2 || firstNameForm.value == null || !/^[A-Za-z\-\']+$/.test(firstNameForm.value)) {
-				showError(firstNameForm, errorMessages.firstName);
-				return (firstNameValidated = false);
-			} else {
-				hideError(firstNameForm);
-				return (firstNameValidated = true);
-			}
-		};
-		//Regex: accept letters from A to Z upper or lowercase, accept - and '
-
-		const lastNameValidate = () => {
-			const lastNameForm = document.querySelector("#last");
-			// eslint-disable-next-line no-useless-escape
-			if (lastNameForm.value.length < 2 || lastNameForm.value == null || !/^[A-Za-z\-\']+$/.test(lastNameForm.value)) {
-				showError(lastNameForm, errorMessages.firstName);
-				return (lastNameValidated = false);
-			} else {
-				hideError(lastNameForm);
-				return (lastNameValidated = true);
-			}
-		};
-		//Regex: accept letters from A to Z upper or lowercase, accept - and '
-
-		const emailValidate = () => {
-			const emailForm = document.querySelector("#email");
-			// eslint-disable-next-line no-useless-escape
-			if (emailForm.value == null || !/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(emailForm.value)) {
-				showError(emailForm, errorMessages.email);
-				return (emailValidated = false);
-			} else {
-				hideError(emailForm);
-				return (emailValidated = true);
-			}
-		};
-		//Regex: (one or more (+)(letters and digits 0 to 9 and _ - .)) @ (one or more (+)(letters and digits 0 to 9 and _ - .)) . (2 to 5 letters)
-
-		const messageValidate = () => {
-			const messageForm = document.querySelector("#message");
-			if (messageForm.value.length < 5 || messageForm.value == null) {
-				showError(messageForm, errorMessages.message);
-				return (messageValidated = false);
-			} else {
-				hideError(messageForm);
-				return (messageValidated = true);
-			}
-		};
-
-		const validate = () => {
-			firstNameValidate();
-			lastNameValidate();
-			emailValidate();
-			messageValidate();
-			if (firstNameValidated == true && lastNameValidated == true && emailValidated == true && messageValidated == true) {
-				showSuccessMessage();
-				hideFormData();
-				modifySubmitButton();
-			} else {
-				console.log("formulaire incorrect");
-			}
-		};
-
-		// Error message
-
-		const errorMessages = {
-			firstName: "Veuillez entrer 2 caractères ou plus.",
-			lastName: "Veuillez entrer 2 caractères ou plus.",
-			email: "Veuillez entrer une adresse email valide.",
-			message: "Veuillez entrer 5 caractères ou plus.",
-		};
-
-		const showError = (selectedInput, errorMessage) => {
-			selectedInput.parentElement.setAttribute("data-error-visible", "true");
-			selectedInput.parentElement.setAttribute("data-error", errorMessage);
-		};
-
-		const hideError = (selectedInput) => {
-			selectedInput.parentElement.removeAttribute("data-error-visible");
-			selectedInput.parentElement.removeAttribute("data-error");
-		};
-
-		// Success message
-
-		const showSuccessMessage = () => {
-			const formBody = document.querySelector(".form__body");
-			const successMessage = document.createElement("span");
-			successMessage.classList.add("success");
-			successMessage.textContent = `Merci ! Votre message a bien été envoyé à ${this.name}`;
-			formBody.appendChild(successMessage);
-			// successMessage.style.position = "absolute";
-			// successMessage.style.top = "50%";
-			// successMessage.style.textAlign = "center";
-		};
-
-		const hideFormData = () => {
-			const formData = document.querySelectorAll(".form__data");
-			formData.forEach((data) => (data.style.visibility = "hidden"));
-		};
-
-		const modifySubmitButton = () => {
-			const submitBtn = document.querySelectorAll(".button--submit");
-			submitBtn.forEach((btn) => btn.setAttribute("value", "Fermer"));
-			submitBtn.forEach((btn) => btn.addEventListener("click", closeModal));
-		};
-	}
+	// bouton to launch modal
 }

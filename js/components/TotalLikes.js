@@ -4,12 +4,13 @@ export default class TotalLikes {
 		this.likes = allLikes;
 	}
 
-	incrementTotalLikes(){
+	incrementTotalLikes() {
 		const photographerTotalLikes = document.querySelector(".photographer__totalLikes");
 		const likesNumber = document.querySelectorAll(".likes__number");
 		const likesArray = Array.from(likesNumber).map((acc) => parseInt(acc.textContent));
 		const likesSum = likesArray.reduce((total, likes) => total + likes, 0);
 		photographerTotalLikes.textContent = likesSum;
+		//get the value (textContent) inside every likes of every photo and add them
 	}
 
 	render() {

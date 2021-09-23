@@ -10,6 +10,7 @@ export default class Heart {
 		const numberLikes = document.querySelector(`[data-likes='${this.id}']`);
 		numberLikes.textContent = this.likes ;
 	}
+	// keep consistency in data (likes) !
 
 	render() {
 		return `

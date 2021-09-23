@@ -20,6 +20,7 @@ export default class PhotographerCard {
 			})
 			.join("");
 	}
+	// for each tag, create a new tag component (array), then .join("") to string
 
 	render() {
 		return `

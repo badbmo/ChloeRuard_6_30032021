@@ -15,7 +15,6 @@ class Index {
 		fetch("FishEyeData.json")
 			.then((response) => response.json())
 			.then((data) => {
-				console.log(data);
 				this.photographers = data.photographers;
 				this.displayHeader();
 				this.displayNavigation();
@@ -42,6 +41,7 @@ class Index {
 				return photographer.tags;
 			})
 			.flat();
+		//get all the tags from all photographers, then .flat() to put everything into a single array
 		const navigation = new Navigation(allTags);
 		headerContainer.innerHTML += navigation.render();
 	}
@@ -52,25 +52,18 @@ class Index {
 			const photographerCard = new PhotographerCard(photographer);
 			return photographerCard.render();
 		});
+		//for each photographer, create a new card (array), then .join("") to string
 		photographerCards.innerHTML = cards.join("");
 	}
 
 	sortPhotographers() {
-		// document.addEventListener("click", (e) => {
-		// 	if (e.target.dataset.trigger === "tag") {
-		// 		console.log(e.target.dataset.id);
-		// 		let filteredPhotographs = this.photographers.filter((photographer) =>
-		// 			photographer.tags.includes(e.target.dataset.id)
-		// 		);
-		// 		this.displayPhotographCards(filteredPhotographs);
-		// 	}
-		// });
 		const urlSearchParams = new URL(document.location).searchParams;
 		const tag = urlSearchParams.get("tag");
 		if (tag != null) {
 			let filteredPhotographs = this.photographers.filter((photographer) => photographer.tags.includes(tag));
 			this.displayPhotographCards(filteredPhotographs);
 		}
+		//look in the url, if tag is not null then filter according to this tag value
 	}
 
 	displayContentButton() {

@@ -22,11 +22,13 @@ class Photograph {
 				this.photographer = data.photographers.find((photographer) => {
 					return photographer.id === parseInt(id);
 				});
+				// look in the URL, get the id value, get the data from the photographer that has this id
 				this.displayHeader();
 				this.displayPhotographer();
 				this.displayForm();
 				this.createPhotographerMedia(data.media, id);
 				this.displayMedia(this.sortByPopularity);
+				//default display: by popularity
 				this.displaySort();
 				this.sortMedia();
 				this.displayTotalLikes();
@@ -63,6 +65,7 @@ class Photograph {
 			.filter((mediums) => mediums.photographerId === parseInt(id))
 			.map((medium) => new PhotographerMedia(medium));
 	}
+	// get all the mediums that have the photographer id (value from URL) in an array
 
 	displayMedia() {
 		const mediumsListContainer = document.querySelector(".mediums__list");
@@ -71,6 +74,9 @@ class Photograph {
 		});
 		mediumsListContainer.innerHTML = picture.join("");
 	}
+	// separate display and render of media to avoid events bubbling
+	// displayMedia() only reorganize media and display in array.
+	//Creation of data (media) is only called once in createPhotographerMedia()
 
 	displaySort() {
 		const mediumsSortContainer = document.querySelector(".mediums__sort");
@@ -112,6 +118,7 @@ class Photograph {
 				}
 				return this.displayMedia(this.photographerMediaArray);
 			}
+			//display mediums again when select list is changed
 		});
 	}
 
@@ -120,6 +127,8 @@ class Photograph {
 		const likesNumber = document.querySelectorAll(".likes__number");
 		const likesArray = Array.from(likesNumber).map((acc) => parseInt(acc.textContent));
 		const likesSum = likesArray.reduce((total, likes) => total + likes, 0);
+		// get the value (textContent) inside every likes of every photo and add them (display only)
+		// to change this value (incrementTotalLikes), other method !
 		this.totalLikes = new TotalLikes(this.photographer, likesSum);
 		mainContainer.innerHTML += this.totalLikes.render();
 	}
@@ -131,20 +140,23 @@ class Photograph {
 				const photographerMedia = this.photographerMediaArray.find((medium) => {
 					return medium.id == id;
 				});
+				// if heart clicked, look for the corresponding media (with id) in photographerMediaArray
 				if (photographerMedia) {
 					photographerMedia.incrementLikes();
 					this.totalLikes.incrementTotalLikes();
 				}
+				// if media found, increment Likes and TotalLikes
 			}
 		});
 	}
 
 	displayLightBox() {
 		const mainContainer = document.querySelector(".mainContainer");
-		console.log(this.photographerMediaArray);
 		const lightbox = new LightBox(this.photographerMediaArray);
 		mainContainer.innerHTML += lightbox.render();
 		lightbox.workingLightbox();
 	}
 }
+
+//Création d'un objet de la classe Photograph (Instance de la classe)
 new Photograph();

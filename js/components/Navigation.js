@@ -14,6 +14,8 @@ export default class Navigation {
 			})
 			.join("");
 	}
+	//New Set create an array with no double, only unique value
+	//Then, create a new tag Component for each unique tag in this array
 
 	render() {
 		return `

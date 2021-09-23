@@ -21,6 +21,7 @@ export default class PhotographerMedia {
 		this.likes += 1;
 		this.heartComponent.incrementLikes();
 	}
+	// keep consistency in data (likes) !
 
 	render() {
 		if (this.video == null) {
@@ -39,7 +40,8 @@ export default class PhotographerMedia {
 			return `
 			<article class="media">
 				<div class="media__medium" >
-					<video class="media__video" src="img/${this.photographerId}/${this.video}" data-trigger="medium__video" data-id="${this.id}">
+					<video class="media__video" src="img/${this.photographerId}/${this.video}" 
+					data-trigger="medium__video" data-id="${this.id}">
 						<p> ${this.alt} </p>
 					</video>
 				</div>
