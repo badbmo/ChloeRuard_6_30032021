@@ -58,10 +58,13 @@ class Index {
 
 	sortPhotographers() {
 		const urlSearchParams = new URL(document.location).searchParams;
-		const tag = urlSearchParams.get("tag");
-		if (tag != null) {
-			let filteredPhotographs = this.photographers.filter((photographer) => photographer.tags.includes(tag));
+		this.tag = urlSearchParams.get("tag");
+		if (this.tag != null) {
+			let filteredPhotographs = this.photographers.filter((photographer) => photographer.tags.includes(this.tag));
 			this.displayPhotographCards(filteredPhotographs);
+			const tagElementsAll = [...document.querySelectorAll(".photographer__tags__tag")];
+			const tagElementsSelected = tagElementsAll.filter((tagElement) => tagElement.dataset.id == this.tag);
+			tagElementsSelected.forEach((tagElement) => tagElement.classList.add("active"));
 		}
 		//look in the url, if tag is not null then filter according to this tag value
 	}
