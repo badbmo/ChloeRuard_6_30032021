@@ -23,7 +23,7 @@ export default class MediaFactory {
 			return `
 		<article class="lightbox__mediaContainer" data-id="${this.id}">
 			<div class="lightbox__media">
-				<video class="lightbox__video" controls src="img/${this.photographerId}/${this.video}">
+				<video class="lightbox__video" autoplay controls src="img/${this.photographerId}/${this.video}">
 					<p> ${this.alt} </p>
 				</video>
 			</div>

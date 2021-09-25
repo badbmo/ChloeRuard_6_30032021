@@ -148,6 +148,22 @@ class Photograph {
 				// if media found, increment Likes and TotalLikes
 			}
 		});
+
+		document.addEventListener("keydown", (e) => {
+			if (e.key === "Enter" || e.code === "Enter") {
+				const element = document.activeElement;
+				if (element.dataset.trigger === "addLike") {
+					const id = element.dataset.id;
+					const photographerMedia = this.photographerMediaArray.find((medium) => {
+						return medium.id == id;
+					});
+					if (photographerMedia) {
+						photographerMedia.incrementLikes();
+						this.totalLikes.incrementTotalLikes();
+					}
+				}
+			}
+		});
 	}
 
 	displayLightBox() {

@@ -26,8 +26,32 @@ export default class LightBox {
 			}
 		});
 
+		document.addEventListener("keydown", (e) => {
+			if (e.key === "Enter" || e.code === "Enter") {
+				const element = document.activeElement;
+				if (element.dataset.trigger === "medium__img" || element.dataset.trigger === "medium__video") {
+					this.allMediumsLightB = [...document.querySelectorAll(".lightbox__mediaContainer")];
+					const allMediums = [...document.querySelectorAll(".media__img,.media__video")];
+					this.allMediumsId = allMediums.map((medium) => medium.dataset.id);
+					this.nbMediums = allMediums.length;
+					let cliquedMedia = element.dataset.id;
+					this.sortMediumsLightB();
+					this.defineI(cliquedMedia);
+					this.launchLightbox();
+					this.allMediumsLightB[this.i].classList.add("active");
+				}
+			}
+		});
+
 		document.addEventListener("click", (e) => {
 			if (e.target.dataset.trigger === "lightbox__closeX") {
+				this.closeLightbox();
+				this.allMediumsLightB[this.i].classList.remove("active");
+			}
+		});
+
+		document.addEventListener("keydown", (e) => {
+			if (e.key === "Escape" || e.code === "Escape") {
 				this.closeLightbox();
 				this.allMediumsLightB[this.i].classList.remove("active");
 			}
@@ -39,8 +63,20 @@ export default class LightBox {
 			}
 		});
 
+		document.addEventListener("keydown", (e) => {
+			if (e.key === "ArrowRight" || e.code === "ArrowRight") {
+				this.nextMedia();
+			}
+		});
+
 		document.addEventListener("click", (e) => {
 			if (e.target.dataset.trigger === "left") {
+				this.previousMedia();
+			}
+		});
+
+		document.addEventListener("keydown", (e) => {
+			if (e.key === "ArrowLeft" || e.code === "ArrowLeft") {
 				this.previousMedia();
 			}
 		});
@@ -106,12 +142,12 @@ export default class LightBox {
 		return `
 		<div class="lightbox__background">
 			<div class="lightbox__modal" aria-label="image closeup view">
-				<img src="img/leftArrow.svg" class="lightbox__arrow" data-trigger="left" alt="previous image"/>
+				<img src="img/leftArrow.svg" class="lightbox__arrow" data-trigger="left" alt="previous image" tabIndex = "0"/>
 				<article class="lightbox__mediumsList">
 				${this.renderMediaFactory()}
 				</article>
-				<img src="img/rightArrow.svg" class="lightbox__arrow" data-trigger="right" alt="next image" />
-				<img src="img/closeX.svg" class="lightbox__closeX" data-trigger="lightbox__closeX" alt="close dialog"/>
+				<img src="img/rightArrow.svg" class="lightbox__arrow" data-trigger="right" alt="next image" tabIndex = "0"/>
+				<img src="img/closeX.svg" class="lightbox__closeX" data-trigger="lightbox__closeX" alt="close dialog" tabIndex = "0"/>
 			</div>
 		</div>`;
 	}

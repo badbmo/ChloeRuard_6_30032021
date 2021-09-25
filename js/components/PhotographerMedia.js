@@ -27,9 +27,9 @@ export default class PhotographerMedia {
 		if (this.video == null) {
 			return `
 			<article class="media">
-        <div class="media__medium" >
+        <div class="media__medium">
           <img class="media__img" src="img/${this.photographerId}/${this.image}" 
-					alt="${this.alt}" data-trigger="medium__img" data-id="${this.id}">
+					alt="${this.alt}, closeup view" data-trigger="medium__img" data-id="${this.id}" tabIndex="0">
         </div>
 				<div class="media__legend">
 					<h2 class="media__title">${this.title}</h2>
@@ -39,9 +39,9 @@ export default class PhotographerMedia {
 		} else {
 			return `
 			<article class="media">
-				<div class="media__medium" >
+				<div class="media__medium">
 					<video class="media__video" src="img/${this.photographerId}/${this.video}" 
-					data-trigger="medium__video" data-id="${this.id}">
+					data-trigger="medium__video" data-id="${this.id}" tabIndex="0">
 						<p> ${this.alt} </p>
 					</video>
 				</div>

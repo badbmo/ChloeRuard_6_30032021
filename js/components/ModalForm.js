@@ -30,6 +30,12 @@ export default class ModalForm {
 			}
 		});
 
+		document.addEventListener("keydown", (e) => {
+			if (e.key === "Escape" || e.code === "Escape") {
+				this.closeModal();
+			}
+		}); 
+
 		document.addEventListener("submit", (e) => {
 			if (e.target.dataset.trigger === "form") {
 				e.preventDefault();
@@ -37,6 +43,7 @@ export default class ModalForm {
 				this.showResultConsole();
 			}
 		});
+
 	}
 
 	showResultConsole() {
@@ -84,7 +91,7 @@ export default class ModalForm {
 	// -- Inputs validation --
 
 	firstNameValidate() {
-		const firstNameForm = document.querySelector("#first");
+		const firstNameForm = document.querySelector("#first-name");
 		// eslint-disable-next-line no-useless-escape
 		if (firstNameForm.value.length < 2 || firstNameForm.value == null || !/^[A-Za-z\-\']+$/.test(firstNameForm.value)) {
 			//Regex: accept letters from A to Z upper or lowercase, accept - and '
@@ -97,7 +104,7 @@ export default class ModalForm {
 	}
 
 	lastNameValidate() {
-		const lastNameForm = document.querySelector("#last");
+		const lastNameForm = document.querySelector("#last-name");
 		// eslint-disable-next-line no-useless-escape
 		if (lastNameForm.value.length < 2 || lastNameForm.value == null || !/^[A-Za-z\-\']+$/.test(lastNameForm.value)) {
 			//Regex: accept letters from A to Z upper or lowercase, accept - and '
@@ -123,7 +130,7 @@ export default class ModalForm {
 	}
 
 	messageValidate() {
-		const messageForm = document.querySelector("#message");
+		const messageForm = document.querySelector("#your-message");
 		if (messageForm.value.length < 5 || messageForm.value == null) {
 			this.showError(messageForm, this.errorMessages.message);
 			return (this.messageValidated = false);
@@ -171,38 +178,38 @@ export default class ModalForm {
 	renderForm() {
 		return `
 		<div class="form__background">
-			<div class="form__modal">
-				<img src="img/closeX.svg" class="form__closeX" data-trigger="closeX" />
-						<h1 class="form__title">Contactez-moi <br /> ${this.name}</h1>
-							<div class="form__body">
-								<form id="form" name="reserve" action="index.html" method="post" data-trigger="form">
-									<div class="form__data">
-										<label for="first" class="form__label">Prénom</label><br />
-										<input class="text-control" type="text" id="first" name="first" minlength="2" /><br />
-									</div>
-									<div class="form__data">
-										<label for="last" class="form__label">Nom</label><br />
-										<input class="text-control" type="text" id="last" name="last" /><br />
-									</div>
-									<div class="form__data">
-										<label for="email" class="form__label">Email</label><br />
-										<input class="text-control" type="email" id="email" name="email" /><br />
-									</div>
-									<div class="form__data">
-										<label for="message" class="form__label">Votre message</label><br />
-										<textarea class="text-control text-control__message" id="message" name="message" minlength="5"></textarea>
-										<br />
-									</div>
-									<input type="submit" class="button button--submit" value="Envoyer" />
-								</form>
+			<dialog open class="form__modal" aria-labelledby="contact me ${this.name}">
+				<img src="img/closeX.svg" class="form__closeX" data-trigger="closeX" alt="close contact form" tabIndex = "0"/>
+				<h1 class="form__title" id="contact me ${this.name}">Contactez-moi <br /> ${this.name}</h1>
+					<div class="form__body">
+						<form id="form" name="reserve" action="index.html" method="post" data-trigger="form">
+							<div class="form__data">
+								<label for="first-name" class="form__label">Prénom</label><br />
+								<input class="text-control" type="text" id="first-name" name="first name" minlength="2" /><br />
 							</div>
-						</div>
-					</div>`;
+							<div class="form__data">
+								<label for="last-name" class="form__label">Nom</label><br />
+								<input class="text-control" type="text" id="last-name" name="last name" /><br />
+							</div>
+							<div class="form__data">
+								<label for="email" class="form__label">Email</label><br />
+								<input class="text-control" type="email" id="email" name="email" /><br />
+							</div>
+							<div class="form__data">
+								<label for="your-message" class="form__label">Votre message</label><br />
+								<textarea class="text-control text-control__message" id="your-message" name="message" minlength="5"></textarea>
+								<br />
+							</div>
+							<input type="submit" class="button button--submit" value="Envoyer" aria-label="send" />
+						</form>
+					</div>
+			</dialog>
+		</div>`;
 	}
 
 	renderbutton() {
 		return `
-		<button class="button button--contact" alt="contact me" data-trigger="contact">
+		<button class="button button--contact" aria-label="contact me" data-trigger="contact">
 			Contactez-moi
 		</button>`;
 	}

@@ -18,7 +18,7 @@ export default class TotalLikes {
 		<div class="photographer__info">
 			<div class="photographer__totalLikes">${this.likes}
 			</div>
-			<img class="totalLikes__icon" src="img/heart.svg"></img>
+			<img class="totalLikes__icon" src="img/heart.svg" alt="likes"></img>
 			<div class="photographer__info__price">${this.price}€ / jour</div>
 		</div>`;
 	}

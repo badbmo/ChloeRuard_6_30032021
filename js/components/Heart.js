@@ -15,6 +15,6 @@ export default class Heart {
 	render() {
 		return `
 			<div class="likes__number" data-likes="${this.id}">${this.likes}</div>
-			<img class="likes__icon" alt="likes" src="img/heart.svg" data-trigger="addLike" data-id="${this.id}"></img>`;
+			<img class="likes__icon" alt="likes" src="img/heart.svg" data-trigger="addLike" data-id="${this.id}" tabIndex="0"></img>`;
 	}
 }

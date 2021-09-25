@@ -25,7 +25,7 @@ export default class PhotographerCard {
 	render() {
 		return `
 		<article class="photographer">
-        <a alt="${this.name}" href="photograph.html?id=${this.id}" class="photographer__link">
+        <a aria-label="${this.name}" href="photograph.html?id=${this.id}" class="photographer__link">
             <div class="photographer__picture">
                 <img src="img/thumbnails/${this.portrait}" alt="">
             </div>
