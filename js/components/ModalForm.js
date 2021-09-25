@@ -52,7 +52,7 @@ export default class ModalForm {
 
 	launchModal() {
 		const modalBg = document.querySelector(".form__background");
-		modalBg.style.display = "block";
+		modalBg.style.display = "flex";
 	}
 
 	closeModal() {

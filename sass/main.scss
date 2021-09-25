@@ -38,7 +38,7 @@
 		@include responsive(laptop) {
 			height: 69px;
 			position: static;
-			margin-right: 300px;
+			margin-right: auto;
 		}
 	}
 	&--content {
@@ -56,8 +56,10 @@
 		position: absolute;
 		right: 50%;
 		margin-right: -85px;
+		margin-top: 25px;
 		@include responsive(laptop) {
 			height: 69px;
+			position: static;
 		}
 	}
 	&--select {
@@ -98,12 +100,30 @@
 
 //nav
 
+nav {
+	@include responsive(tablet) {
+		margin-right: 100px;
+	}
+	@include responsive(laptop) {
+		margin-right: 300px;
+	}
+}
+
 .photographer__tags {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	gap: 5px;
 	margin: 10px 0;
+	&__header {
+		justify-content: left;
+		&,
+		.photographer__tags__tag {
+			@include responsive(laptop) {
+				font-size: 18px;
+			}
+		}
+	}
 }
 .photographer__tags__tag {
 	display: block;
@@ -121,6 +141,11 @@
 		color: white;
 		border-color: $primary-background-color;
 	}
+	&.active {
+		background-color: $primary-background-color;
+		color: white;
+		border-color: $primary-background-color;
+	}
 }
 
 //header
@@ -128,7 +153,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	position: relative;
+	//	position: relative;
 	gap: 30px;
 }
 
@@ -159,11 +184,20 @@
 			@include img-max;
 		}
 	}
+	&__description {
+		margin-right: 10px;
+	}
 	&__name {
 		font-size: 36px;
 		font-weight: 400;
 		line-height: 47px;
 		color: $primary-text-color;
+		&__header {
+			@include responsive(laptop) {
+				font-size: 64px;
+				line-height: 83px;
+			}
+		}
 	}
 	&__location {
 		font-size: 13px;
@@ -171,6 +205,12 @@
 		line-height: 17px;
 		color: $secondary-text-color;
 		margin: 5px 0;
+		&__header {
+			@include responsive(laptop) {
+				font-size: 24px;
+				line-height: 40px;
+			}
+		}
 	}
 	&__tagline {
 		font-size: 10px;
@@ -178,6 +218,12 @@
 		line-height: 13px;
 		color: $tertiary-text-color;
 		margin: 5px 0;
+		&__header {
+			@include responsive(laptop) {
+				font-size: 18px;
+				line-height: 40px;
+			}
+		}
 	}
 	&__price {
 		font-size: 9px;
@@ -189,16 +235,15 @@
 
 //photograph
 .photographer__picture__header {
+	margin-left: auto;
 	width: 100px;
 	height: 100px;
+	min-width: 100px;
 	@include responsive(laptop) {
 		width: 200px;
+		min-width: 200px;
 		height: 200px;
 	}
-}
-
-.photographer__tags__header {
-	justify-content: left;
 }
 
 //modal
@@ -213,12 +258,13 @@
 		height: 100%;
 		width: 100%;
 		background-color: white;
+		overflow: auto;
 	}
 	&__modal {
 		margin: auto;
 		padding: clamp(10px, 5%, 30px);
-		max-width: 660px;
-		height: clamp(900px, 100vh, 900px);
+		width: 660px;
+		height: 900px;
 		background: $secondary-background-color;
 		border-radius: 5px;
 		overflow: hidden;
@@ -234,13 +280,20 @@
 		cursor: pointer;
 		filter: invert(100%) sepia(93%) saturate(2%) hue-rotate(196deg) brightness(109%) contrast(100%);
 		//colorer le logo svg en blanc
+		@include responsive(laptop) {
+			width: 40px;
+		}
 	}
 	&__title {
 		font-size: 36px;
 		font-weight: 400;
 		color: black;
 		line-height: 45px;
-		margin-bottom: 30px;
+		margin-bottom: 20px;
+		@include responsive(laptop) {
+			font-size: 64px;
+			line-height: 80px;
+		}
 	}
 	&__body {
 		padding-right: clamp(10px, 5%, 30px);
@@ -251,13 +304,17 @@
 		font-weight: 400;
 		color: $form-text-color;
 		display: inline-block;
-		margin-bottom: 11px;
+		margin: 8px 0 5px 0;
+		line-height: 30px;
+		@include responsive(laptop) {
+			font-size: 36px;
+			line-height: 46px;
+		}
 	}
 }
 
 .text-control {
 	border: none;
-	margin-bottom: 11px;
 	padding: 8px;
 	width: 100%;
 	font-size: 20px;
@@ -339,9 +396,12 @@
 		margin: 10px 0;
 	}
 	&__title {
-		color: $primary-text-color;
+		color: $secondary-text-color;
 		font-weight: 400;
 		font-size: 14px;
+		@include responsive(laptop) {
+			font-size: 24px;
+		}
 	}
 	&__likes {
 		display: flex;
@@ -354,9 +414,15 @@
 		margin: 0 10px;
 		font-weight: 500;
 		font-size: 14px;
+		@include responsive(laptop) {
+			font-size: 24px;
+		}
 	}
 	&__icon {
 		height: 14px;
+		@include responsive(laptop) {
+			height: 24px;
+		}
 	}
 }
 
@@ -379,11 +445,12 @@
 		@include responsive(laptop) {
 			display: flex;
 		}
+		@include responsive(max) {
+			right: 25%;
+		}
 	}
 	&__header {
 		display: flex;
-		align-items: flex-start;
-		justify-content: space-between;
 		border-radius: 5px;
 		margin: 50px 0 10px 0;
 		@include responsive(laptop) {
@@ -414,27 +481,30 @@
 	}
 	&__modal {
 		margin: auto;
-		padding: clamp(10px, 5%, 30px);
-		width: 1440px;
-		max-height: 100vh;
-		background: white;
-		overflow: hidden;
 		position: relative;
 		display: flex;
-		align-items:center;
+		align-items: center;
 		justify-content: space-between;
+		max-width: 1250px;
+		width: 100%;
+		max-height: 800px;
+		overflow: hidden;
+		@include responsive(tablet) {
+			height: 100%;
+		}
 	}
 	&__mediaContainer {
-		max-height: 100% ;
-		width: 800px;
-		height: 800px;
+		display: none;
+		height: 100%;
+		&.active {
+			display: block;
+		}
+	}
+	&__mediumsList {
+		height: 100%;
 	}
 	&__media {
-		// width: clamp(10px, 100%, 1050px);
-		// height: clamp(10px, 100%, 950px);
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
+		height: 95%;
 	}
 	&__video {
 		display: block;
@@ -443,34 +513,33 @@
 	&__img {
 		@include img-max;
 	}
-	&__title{
+	&__title {
 		color: $primary-text-color;
 		font-weight: 400;
 		font-size: 14px;
 		margin: 10px 0;
+		@include responsive(laptop) {
+			font-size: 24px;
+		}
 	}
 	&__closeX {
 		cursor: pointer;
 		position: absolute;
-		right: 35px;
-		top: 35px;
+		right: 30px;
+		top: 0;
 		width: 14px;
 		opacity: 1;
-		@include responsive(laptop){
-			width: 42px;
+		@include responsive(laptop) {
+			width: 30px;
 		}
 	}
 	&__arrow {
+		margin: 30px;
 		cursor: pointer;
 		width: 14px;
-		@include responsive(laptop){
-			width: 42px;
-		}
-	}
-	&__mediaContainer{
-		display: none;
-		&.active{
-			display: block;
+		@include responsive(laptop) {
+			width: 48px;
+			height: 30px;
 		}
 	}
 }
