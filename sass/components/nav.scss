@@ -1,0 +1,8 @@
+nav {
+	@include responsive(tablet) {
+		margin-right: 100px;
+	}
+	@include responsive(laptop) {
+		margin-right: 300px;
+	}
+}

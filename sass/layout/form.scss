@@ -1,0 +1,100 @@
+.form {
+	&__background {
+		display: none;
+		position: fixed;
+		z-index: 1;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 100%;
+		background-color: rgba(196, 196, 196, 0.4);
+		overflow: auto;
+	}
+	&__modal {
+		margin: auto;
+		padding: clamp(10px, 5%, 30px);
+		width: 660px;
+		height: 900px;
+		background: $secondary-background-color;
+		border-radius: 5px;
+		overflow: hidden;
+		position: relative;
+		box-shadow: -5px 10px 30px 0px rgba(0, 0, 0, 0.4);
+	}
+	&__closeX {
+		position: absolute;
+		right: 35px;
+		top: 35px;
+		width: 20px;
+		opacity: 1;
+		cursor: pointer;
+		filter: invert(100%) sepia(93%) saturate(2%) hue-rotate(196deg) brightness(109%) contrast(100%);
+		//colorer le logo svg en blanc
+		@include responsive(laptop) {
+			width: 40px;
+		}
+	}
+	&__title {
+		font-size: 36px;
+		font-weight: 400;
+		color: black;
+		line-height: 45px;
+		margin-bottom: 20px;
+		@include responsive(laptop) {
+			font-size: 64px;
+			line-height: 80px;
+		}
+	}
+	&__body {
+		padding-right: clamp(10px, 5%, 30px);
+		position: relative;
+	}
+	&__label {
+		font-size: 24px;
+		font-weight: 400;
+		color: $form-text-color;
+		display: inline-block;
+		margin: 8px 0 5px 0;
+		line-height: 30px;
+		@include responsive(laptop) {
+			font-size: 36px;
+			line-height: 46px;
+		}
+	}
+}
+
+.text-control {
+	border: none;
+	padding: 8px;
+	width: 100%;
+	font-size: 20px;
+	height: 48px;
+	border-radius: 5px;
+	&__message {
+		height: 148px;
+	}
+}
+
+.success {
+	position: absolute;
+	top: 50%;
+	text-align: center;
+	line-height: 30px;
+}
+
+.form__data[data-error]::after {
+	content: attr(data-error);
+	font-size: 1em;
+	color: $secondary-text-color;
+	display: block;
+	opacity: 0;
+	transition: 0.3s;
+	position: absolute;
+	right: 10px;
+}
+.form__data[data-error-visible="true"]::after {
+	opacity: 1;
+}
+.form__data[data-error-visible="true"] .text-control {
+	border: 2px solid $secondary-text-color;
+}

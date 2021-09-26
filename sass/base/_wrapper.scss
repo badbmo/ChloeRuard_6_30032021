@@ -4,4 +4,8 @@
 	background-color: white;
 	max-width: 1440px;
 	margin: auto;
+	margin-top: clamp(40px, 10%, 50px);
+	margin-bottom: clamp(40px, 10%, 50px);
+	padding: 0 5%;
+	position: relative;
 }

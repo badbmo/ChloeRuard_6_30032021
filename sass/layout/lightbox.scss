@@ -1,0 +1,75 @@
+.lightbox {
+	&__background {
+		display: none;
+		position: fixed;
+		z-index: 1;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 100%;
+		background-color: white;
+	}
+	&__modal {
+		margin: auto;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		max-width: 1250px;
+		width: 100%;
+		max-height: 800px;
+		overflow: hidden;
+		@include responsive(tablet) {
+			height: 100%;
+		}
+	}
+	&__mediaContainer {
+		display: none;
+		height: 100%;
+		&.active {
+			display: block;
+		}
+	}
+	&__mediumsList {
+		height: 100%;
+	}
+	&__media {
+		height: 95%;
+	}
+	&__video {
+		display: block;
+		@include img-max;
+	}
+	&__img {
+		@include img-max;
+	}
+	&__title {
+		color: $secondary-text-color;
+		font-weight: 400;
+		font-size: 14px;
+		margin: 10px 0;
+		@include responsive(laptop) {
+			font-size: 24px;
+		}
+	}
+	&__closeX {
+		cursor: pointer;
+		position: absolute;
+		right: 30px;
+		top: 0;
+		width: 14px;
+		opacity: 1;
+		@include responsive(laptop) {
+			width: 30px;
+		}
+	}
+	&__arrow {
+		margin: 30px;
+		cursor: pointer;
+		width: 14px;
+		@include responsive(laptop) {
+			width: 48px;
+			height: 30px;
+		}
+	}
+}

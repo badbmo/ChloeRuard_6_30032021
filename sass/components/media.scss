@@ -1,0 +1,35 @@
+.media {
+	&__medium {
+		cursor: pointer;
+		width: 100%;
+		height: 200px;
+		overflow: hidden;
+		border-radius: 5px;
+		@include responsive(laptop) {
+			height: 300px;
+		}
+	}
+	&__img {
+		@include img-max;
+	}
+	&__video {
+		display: block;
+		@include img-max;
+	}
+	&__legend {
+		display: flex;
+		justify-content: space-between;
+		margin: 10px 0;
+	}
+	&__title {
+		color: $secondary-text-color;
+		font-weight: 400;
+		font-size: 14px;
+		@include responsive(laptop) {
+			font-size: 24px;
+		}
+	}
+	&__likes {
+		display: flex;
+	}
+}

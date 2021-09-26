@@ -1,0 +1,24 @@
+.photographers__cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	gap: 50px;
+	justify-content: center;
+}
+
+.photographers {
+	&__list {
+		margin-top: 30px;
+	}
+	&__title {
+		position: absolute;
+		top: 0;
+		right: 5%;
+		color: $secondary-text-color;
+		font-size: 1rem;
+		font-weight: 400;
+		line-height: 37.5px;
+		@include responsive(laptop) {
+			font-size: 2.25rem;
+		}
+	}
+}

@@ -1,0 +1,19 @@
+.mediums {
+	&__list {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+		gap: 5px;
+		margin-top: 30px;
+		@include responsive(laptop) {
+			grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+			grid-column-gap: 90px;
+			grid-row-gap: 10px;
+		}
+	}
+	&__sort {
+		display: none;
+		@include responsive(laptop) {
+			display: block;
+		}
+	}
+}

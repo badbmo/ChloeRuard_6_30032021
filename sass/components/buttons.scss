@@ -1,0 +1,59 @@
+.button {
+	background-color: $primary-background-color;
+	color: white;
+	font-family: "DM Sans", Arial, Helvetica, sans-serif;
+	font-weight: 700;
+	font-size: 18px;
+	width: 170px;
+	height: 35px;
+	border-radius: 5px;
+	border: none;
+	text-align: center;
+	cursor: pointer;
+	&--contact {
+		position: fixed;
+		bottom: 5%;
+		right: 50%;
+		margin-right: -85px;
+		&:hover,
+		&:focus {
+			background-color: $secondary-background-color;
+			color: black;
+		}
+		@include responsive(laptop) {
+			height: 69px;
+			position: static;
+			margin-right: auto;
+		}
+	}
+	&--content {
+		display: none;
+		position: fixed;
+		right: 50%;
+		top: 0;
+		background-color: $secondary-background-color;
+		color: black;
+		width: 182px;
+		margin-right: -91px;
+		//half the width to center the button exactly in the center of the screen
+	}
+	&--submit {
+		position: absolute;
+		right: 50%;
+		margin-right: -85px;
+		margin-top: 25px;
+		@include responsive(laptop) {
+			height: 69px;
+			position: static;
+		}
+	}
+	&--select {
+		height: 69px;
+	}
+}
+
+.sort__label {
+	padding-right: 10px;
+	font-weight: 700;
+	font-size: 18px;
+}

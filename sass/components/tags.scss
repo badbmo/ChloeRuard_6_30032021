@@ -1,0 +1,41 @@
+.photographer__tags {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 5px;
+	margin: 10px 0;
+
+	&__tag {
+		display: block;
+		color: $secondary-text-color;
+		border-radius: 20px;
+		border: 1px solid $border-color;
+		text-align: center;
+		cursor: pointer;
+		padding: 5px 8px;
+		font-size: 12px;
+		font-weight: 500;
+		&:hover,
+		&:focus {
+			background-color: $primary-background-color;
+			color: white;
+			border-color: $primary-background-color;
+		}
+		&.active {
+			background-color: $primary-background-color;
+			color: white;
+			border-color: $primary-background-color;
+		}
+	}
+	//on photographer page
+	&__header {
+		justify-content: left;
+
+		&,
+		.photographer__tags__tag {
+			@include responsive(laptop) {
+				font-size: 18px;
+			}
+		}
+	}
+}

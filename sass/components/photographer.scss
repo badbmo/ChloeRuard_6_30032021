@@ -1,0 +1,126 @@
+.photographer {
+	text-align: center;
+
+	&__link {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	&__picture {
+		width: 200px;
+		height: 200px;
+		overflow: hidden;
+		border-radius: 100%;
+		box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.15);
+		margin: 10px;
+		img {
+			@include img-max;
+		}
+
+		&__header {
+			//page photographer
+			margin-left: auto;
+			width: 100px;
+			height: 100px;
+			min-width: 100px;
+			@include responsive(laptop) {
+				width: 200px;
+				min-width: 200px;
+				height: 200px;
+			}
+		}
+	}
+
+	&__description {
+		margin-right: 10px;
+	}
+
+	&__name {
+		font-size: 36px;
+		font-weight: 400;
+		line-height: 47px;
+		color: $primary-text-color;
+
+		&__header {
+			//page photographer
+			@include responsive(laptop) {
+				font-size: 64px;
+				line-height: 83px;
+			}
+		}
+	}
+
+	&__location {
+		font-size: 13px;
+		font-weight: 400;
+		line-height: 17px;
+		color: $secondary-text-color;
+		margin: 5px 0;
+
+		&__header {
+			//page photographer
+			@include responsive(laptop) {
+				font-size: 24px;
+				line-height: 40px;
+			}
+		}
+	}
+
+	&__tagline {
+		font-size: 10px;
+		font-weight: 400;
+		line-height: 13px;
+		color: $tertiary-text-color;
+		margin: 5px 0;
+
+		&__header {
+			//page photographer
+			@include responsive(laptop) {
+				font-size: 18px;
+				line-height: 40px;
+			}
+		}
+	}
+
+	&__price {
+		font-size: 9px;
+		color: #757575;
+		font-weight: 400;
+		line-height: 12px;
+	}
+
+	&__info {
+		position: fixed;
+		justify-content: space-between;
+		align-items: center;
+		background-color: $secondary-background-color;
+		color: black;
+		width: 376px;
+		height: 70px;
+		bottom: 0;
+		right: 5%;
+		font-weight: 500;
+		font-size: 24px;
+		border-radius: 5px 5px 0 0;
+		padding: 0 30px;
+		display: none;
+		@include responsive(laptop) {
+			display: flex;
+		}
+		@include responsive(max) {
+			right: 25%;
+		}
+	}
+
+	&__header {
+		//page photographer
+		display: flex;
+		border-radius: 5px;
+		margin: 50px 0 10px 0;
+		@include responsive(laptop) {
+			background-color: $tertiary-background-color;
+			padding: 50px;
+		}
+	}
+}

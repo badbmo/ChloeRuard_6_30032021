@@ -1,0 +1,14 @@
+.headerContainer {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 30px;
+}
+
+.index__link {
+	margin-right: 30px;
+	width: clamp(150px, 40%, 200px);
+	img {
+		@include img-max;
+	}
+}
