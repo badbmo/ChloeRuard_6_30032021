@@ -93,7 +93,7 @@ export default class ModalForm {
 	firstNameValidate() {
 		const firstNameForm = document.querySelector("#first-name");
 		// eslint-disable-next-line no-useless-escape
-		if (firstNameForm.value.length < 2 || firstNameForm.value == null || !/^[A-Za-z\-\']+$/.test(firstNameForm.value)) {
+		if (firstNameForm.value.length < 2 || firstNameForm.value == null || !/^[A-Za-zÀ-ÖØ-öø-ÿ\-\']+$/.test(firstNameForm.value)) {
 			//Regex: accept letters from A to Z upper or lowercase, accept - and '
 			this.showError(firstNameForm, this.errorMessages.firstName);
 			return (this.firstNameValidated = false);
@@ -106,7 +106,7 @@ export default class ModalForm {
 	lastNameValidate() {
 		const lastNameForm = document.querySelector("#last-name");
 		// eslint-disable-next-line no-useless-escape
-		if (lastNameForm.value.length < 2 || lastNameForm.value == null || !/^[A-Za-z\-\']+$/.test(lastNameForm.value)) {
+		if (lastNameForm.value.length < 2 || lastNameForm.value == null || !/^[A-Za-zÀ-ÖØ-öø-ÿ\-\']+$/.test(lastNameForm.value)) {
 			//Regex: accept letters from A to Z upper or lowercase, accept - and '
 			this.showError(lastNameForm, this.errorMessages.firstName);
 			return (this.lastNameValidated = false);

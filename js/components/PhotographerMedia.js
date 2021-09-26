@@ -40,9 +40,8 @@ export default class PhotographerMedia {
 			return `
 			<article class="media">
 				<div class="media__medium">
-					<video class="media__video" src="img/${this.photographerId}/${this.video}" 
+					<video class="media__video" title= "${this.alt}" src="img/${this.photographerId}/${this.video}" 
 					data-trigger="medium__video" data-id="${this.id}" tabIndex="0">
-						<p> ${this.alt} </p>
 					</video>
 				</div>
 				<div class="media__legend">

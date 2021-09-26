@@ -23,6 +23,7 @@ class Photograph {
 					return photographer.id === parseInt(id);
 				});
 				// look in the URL, get the id value, get the data from the photographer that has this id
+				this.setDocumentTitle();
 				this.displayHeader();
 				this.displayPhotographer();
 				this.displayForm();
@@ -38,6 +39,10 @@ class Photograph {
 			.catch(function (err) {
 				console.log(err);
 			});
+	}
+
+	setDocumentTitle() {
+		document.title = `FishEye - ${this.photographer.name}`;
 	}
 
 	displayHeader() {
