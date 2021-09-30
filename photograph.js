@@ -28,7 +28,8 @@ class Photograph {
 				this.displayPhotographer();
 				this.displayForm();
 				this.createPhotographerMedia(data.media, id);
-				this.displayMedia(this.sortByPopularity);
+				this.sortByPopularity();
+				this.displayMedia();
 				//default display: by popularity
 				this.displaySort();
 				this.sortMedia();
